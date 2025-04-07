@@ -60,7 +60,7 @@ fn parse_args(args: Vec<String>) -> (String, String) {
                 arg
             }
         })
-        .collect();
+        .collect::<Vec<String>>().join(" ");
 
     if !executable_path.is_empty() {
         target_args = format!("{executable_path} {target_args}");
@@ -146,6 +146,7 @@ mod tests {
             "--path",
             r#"C:\Program Files\Notepad++\notepad++.exe"#,
             "--",
+            r#"D:\Dummy Notes.txt"#,
             r#"D:\DummySampleSimple DB.txt"#,
         ]
         .into_iter()
@@ -160,7 +161,7 @@ mod tests {
         );
         assert_eq!(
             target_args,
-            r#"C:\Program Files\Notepad++\notepad++.exe "D:\DummySampleSimple DB.txt""#
+            r#"C:\Program Files\Notepad++\notepad++.exe "D:\Dummy Notes.txt" "D:\DummySampleSimple DB.txt""#
         );
 
         Ok(())
